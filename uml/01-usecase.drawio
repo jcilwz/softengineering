@@ -1,0 +1,72 @@
+<mxfile host="app.diagrams.net" agent="OpenCode" version="24.7.7">
+  <diagram id="blog-usecase" name="博客系统-浏览帖子-用例图">
+    <mxGraphModel dx="1100" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="guest" value="游客" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="50" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="member" value="会员" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="50" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys" value="博客系统（浏览帖子功能域）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="220" y="40" width="560" height="440" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc1" value="检索帖子" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="sys">
+          <mxGeometry x="70" y="60" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc2" value="阅读帖子详细内容" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="sys">
+          <mxGeometry x="70" y="190" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc3" value="浏览评论" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="sys">
+          <mxGeometry x="250" y="120" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc4" value="回复帖子" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="sys">
+          <mxGeometry x="70" y="310" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc5" value="登录" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" vertex="1" parent="sys">
+          <mxGeometry x="250" y="290" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="note" value="«extend» UC2 阅读帖子详细内容&#10;扩展点：用户选择回复&#10;触发条件：用户点击“回复”&#10;游客未登录 → 提示先登录并转【登录】用例" style="shape=note;whiteSpace=wrap;html=1;size=13;align=left;verticalAlign=top;spacingLeft=8;spacingTop=8;" vertex="1" parent="sys">
+          <mxGeometry x="230" y="352" width="250" height="88" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="guest" target="uc1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="guest" target="uc2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="member" target="uc1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="member" target="uc2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="member" target="uc4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="" style="endArrow=none;html=1;rounded=1;" edge="1" parent="1" source="guest" target="uc5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="65" y="505"/>
+              <mxPoint x="740" y="505"/>
+              <mxPoint x="740" y="350"/>
+            </Array>
+            <mxPoint x="65" y="155" as="sourcePoint"/>
+            <mxPoint x="620" y="350" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="«include»" style="endArrow=open;dashed=1;html=1;rounded=0;fontSize=11;" edge="1" parent="sys" source="uc2" target="uc3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e9" value="«extend»" style="endArrow=open;dashed=1;html=1;rounded=0;fontSize=11;" edge="1" parent="sys" source="uc4" target="uc2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" style="endArrow=open;dashed=1;html=1;rounded=0;" edge="1" parent="sys" source="note" target="uc4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,48 @@
+@startuml
+' 博客系统 — 浏览帖子功能 用例图
+' 需求模型 Stage 1 | PlantUML | 中文标签
+
+left to right direction
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #F8F9FA
+  BorderColor #4A5568
+}
+
+actor "游客" as Guest
+actor "会员" as Member
+
+rectangle "博客系统（浏览帖子功能域）" {
+  usecase "检索帖子" as UC1
+  usecase "阅读帖子详细内容" as UC2
+  usecase "浏览评论" as UC3
+  usecase "回复帖子" as UC4
+  usecase "登录" as UC5
+}
+
+' 会员与游客均可用
+Guest -- UC1
+Guest -- UC2
+Member -- UC1
+Member -- UC2
+
+' 回复：仅会员（系统判定登录态）
+Member -- UC4
+
+' 登录：游客转为会员
+Guest -- UC5
+
+' 帖子详情总是展示评论 → 包含（箭头指向被包含用例）
+UC2 ..> UC3 : <<include>>
+
+' 阅读详情时用户可选回复 → 扩展（箭头指向基用例）
+UC4 ..> UC2 : <<extend>>
+
+note bottom of UC4
+  <<extend>> UC2 阅读帖子详细内容
+  扩展点：用户选择回复
+  触发条件：用户点击"回复"（游客点击同样触发，
+  未登录则转 UC4 扩展流 A-2 → 提示先登录并转【登录】）
+end note
+
+@enduml
