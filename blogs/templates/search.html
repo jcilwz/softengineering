@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}检索帖子 · 博客系统{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">BROWSE POSTS</p>
+  <h1>检索帖子</h1>
+  <p class="lede">按帖子标题关键词查找你感兴趣的内容。</p>
+</section>
+
+<form class="search-form" method="get" action="{{ url_for('search') }}" role="search">
+  <label class="sr-only" for="keyword">帖子标题关键词</label>
+  <input id="keyword" name="keyword" type="search" value="{{ keyword }}"
+         placeholder="输入帖子标题关键词" autofocus autocomplete="off">
+  <button class="button button-primary" type="submit">检索</button>
+</form>
+
+{% if searched %}
+  <div class="result-head">
+    <p class="result-count">共找到 <strong>{{ posts|length }}</strong> 篇帖子</p>
+    {% if keyword %}
+      <p class="result-term">关键词：<span>{{ keyword }}</span></p>
+    {% endif %}
+  </div>
+
+  {% if posts %}
+    <ul class="post-list">
+      {% for post in posts %}
+        <li class="post-item">
+          <h2 class="post-item-title">
+            <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>
+          </h2>
+          <p class="meta">作者 {{ post.author_name }} · 发表于 {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty-state">
+      <p class="empty-title">未找到相关帖子</p>
+      <p class="empty-hint">换个关键词试试，检索范围仅限帖子标题。</p>
+    </div>
+  {% endif %}
+{% else %}
+  <div class="empty-state empty-neutral">
+    <p class="empty-title">输入标题关键词开始检索</p>
+    <p class="empty-hint">例如：Flask、分页、软件工程。</p>
+  </div>
+{% endif %}
+{% endblock %}

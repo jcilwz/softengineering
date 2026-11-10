@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}博客系统{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ url_for('search') }}">
+        <span class="brand-mark" aria-hidden="true">博</span>
+        <span class="brand-text">
+          博客系统
+          <small>浏览帖子</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link{% if request.endpoint in ('search', 'post_detail') %} is-active{% endif %}"
+           href="{{ url_for('search') }}">检索</a>
+        {% if is_logged_in %}
+          <span class="user-chip">你好，{{ current_member_name }}</span>
+          <form class="inline-form" method="post" action="{{ url_for('logout') }}">
+            <button class="link-button" type="submit">退出</button>
+          </form>
+        {% else %}
+          <a class="nav-link{% if request.endpoint in ('login', 'login_submit') %} is-active{% endif %}"
+             href="{{ url_for('login') }}">登录</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}" role="status">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">博客系统 · 浏览帖子 · Python + Flask + SQLite</div>
+  </footer>
+</body>
+</html>

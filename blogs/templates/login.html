@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}登录 · 博客系统{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <section class="auth-card">
+    <p class="eyebrow">MEMBER LOGIN</p>
+    <h1>登录</h1>
+    <p class="lede">登录后即可回复帖子。</p>
+
+    {% if error %}
+      <div class="flash flash-error" role="alert">{{ error }}</div>
+    {% endif %}
+
+    <form class="stack-form" method="post" action="{{ url_for('login_submit') }}">
+      <input type="hidden" name="next" value="{{ next_url }}">
+
+      <div class="field">
+        <label for="username">用户名</label>
+        <input id="username" name="username" type="text" value="{{ username }}"
+               autocomplete="username" required autofocus>
+      </div>
+
+      <div class="field">
+        <label for="password">密码</label>
+        <input id="password" name="password" type="password"
+               autocomplete="current-password" required>
+      </div>
+
+      <button class="button button-primary button-block" type="submit">登录</button>
+    </form>
+
+    <p class="demo-accounts">
+      演示账号：<code>alice / alice123</code>（<code>bob / bob123</code>、<code>carol / carol123</code>）
+    </p>
+    <p class="back-link"><a href="{{ url_for('search') }}">← 返回检索</a></p>
+  </section>
+</div>
+{% endblock %}

@@ -514,17 +514,42 @@ alt1 [评论总数 ≤ 20 — A-1] ───────────────
 
 ---
 
-### 第 9 轮：会话实录文档
+### 第 9 轮：项目实现
 
 **提示词**：
 
 ```prompt
-复制本会话的全部提示词和对应的输出（忽略思考过程），并输出到"AI辅助软件分析与设计案例.md"
+根据 @教学内容/博客系统软件设计说明书.md 使用python+flask+sqlit开发项目，项目源代码输出到 "blogs"
 ```
 
-**AI 输出**：本文档（`D:\workspace\softengineering\AI辅助软件分析与设计案例.md`）。
+**AI 输出**：项目已生成到 `blogs/`，按设计说明书的四层结构实现 UC1–UC5。
 
-> 整理说明：本次已将《AI辅助软件开发教学要点》与本会话实录合并为当前教学案例文档 `AI辅助软件分析与设计教学案例.md`；原始两份文档保留，便于对照。
+**运行方式**
+```powershell
+cd blogs
+python -m pip install -r requirements.txt
+python seed.py          # 重建演示数据库（3 会员 / 6 帖子 / 69 评论）
+python run.py
+```
+访问 http://127.0.0.1:5000
+
+演示账号：`alice / alice123`、`bob / bob123`、`carol / carol123`
+
+**实现内容**
+- 界面层：`pages/` + 5 个 Jinja2 模板，检索页 / 详情页 / 登录页
+- 控制层：检索、帖子、评论、回复、登录 5 个控制器
+- DAO 层：`PostDAO`、`CommentDAO`、`MemberDAO`，SQLite 直连、参数化 SQL、外键级联
+- 实体/值对象：`Post`、`Comment`、`Member`、`PageResult`
+- 评论每页 20 条倒序、翻页控件显隐与禁用、越界页码钳制
+- 回复登录判定、`next` 返回原帖、空内容校验、新回复居首
+- 密码 `werkzeug` 哈希存储、session 登录态、开放重定向防护、XSS 转义
+- `README.md` 含类映射、表结构、路由、配置、假设与测试说明
+
+**验证结果**
+- `python -m pytest -q`：**39 passed**
+- 真实 Flask 服务冒烟检查：`/search`、`/post/1`、静态 CSS 均返回 200
+
+注意：`seed.py` 会删除并重建 `blogs/instance/blog.sqlite3`，仅用于演示数据初始化。
 
 ---
 
@@ -571,6 +596,6 @@ alt1 [评论总数 ≤ 20 — A-1] ───────────────
 | 检索帖子/阅读帖子详细内容/浏览评论(v1/v2/v3)/回复帖子/登录 -sequence-design.drawio | 设计级顺序图 | 第 4/5/6 轮 |
 | UC4-activity.drawio、UC5-activity.drawio | 活动图 | 第 7 轮 |
 | 设计说明书.md | 软件设计说明书 | 第 8 轮 |
-| AI辅助软件分析与设计教学案例.md | 教学案例（本文档） | 第 9 轮 + 整理 |
+| 项目源代码 | 项目实现 | 第 9 轮 实现 |
 
 > 本文档由《AI辅助软件开发教学要点》与《AI辅助软件分析与设计案例》合并整理而成；原始两份文档保留不动，便于对照。

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{ code or 500 }} · 博客系统{% endblock %}
+
+{% block content %}
+<div class="empty-state error-state">
+  <p class="eyebrow">ERROR {{ code or '' }}</p>
+  <h1>{{ message }}</h1>
+  <p class="empty-hint">请返回检索页面继续浏览。</p>
+  <a class="button button-primary" href="{{ url_for('search') }}">返回检索</a>
+</div>
+{% endblock %}
