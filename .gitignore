@@ -1,2 +1,8 @@
-﻿教学内容/实验二教师专用材料.docx
-
+# 本仓库只跟踪 uml/ 与 教学内容/ 两个目录
+# 以下为本地资料与工具，不推送到 GitHub
+.workbuddy/
+nt.exe
+README-nt.md
+资料库/
+资料库.rar
+实验二教师专用材料.docx
